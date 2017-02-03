@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.json.ex">
+	<delete id="remove" parameterType="String">
+		delete from member 
+		where id=#{id}
+	</delete>
+	
+	<insert id="add">
+		insert into member(
+			id,
+			pw,
+			name,
+			age,
+			gender
+		) values(
+			#{id},
+			#{pw},
+			#{name},
+			#{age},
+			#{gender}
+		)
+	</insert>
+	
+	<update id="modifyById" parameterType="com.json.ex.Member">
+		update member set 
+			pw=#{pw},
+			name=#{name},
+			age=#{age},
+			gender=#{gender} 
+		where id=#{id}
+	</update>
+	
+	<select id="list" resultType="com.json.ex.Member">
+		select 
+			id,
+			pw,
+			name,
+			age,
+			gender
+		from member
+	</select>
+</mapper>
