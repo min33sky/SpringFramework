@@ -24,5 +24,6 @@ ${sessionScope.member.name}
 (<a style="color:white;" 
   href="<%=request.getContextPath()%>/auth/logout.do">로그아웃</a>)
 </c:if>
+
 </span>
 </div>
