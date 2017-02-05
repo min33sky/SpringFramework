@@ -62,6 +62,7 @@ public class HomeController {
     	System.out.println("원본 암호 : " + password);
     	MessageDigest md = null;
     	String encPw = null;
+    	
     	try {
 			md = MessageDigest.getInstance("SHA-256");
 			byte[] mdResult = md.digest(password.getBytes());
@@ -82,6 +83,8 @@ public class HomeController {
         sqlSession.update("com.json.ex.modifyById",member);
         return member.getId();
     }
+    
+    
     //리스트
     @RequestMapping(value="/list", method=RequestMethod.GET)
     public @ResponseBody List<Member> list() {
