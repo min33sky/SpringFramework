@@ -38,7 +38,7 @@ public class HomeController {
 	 * 회원 목록
 	 */
 	@RequestMapping("/member/list")
-	public String memberList(Model model, HttpServletRequest request){
+	public String memberList(Model model, HttpServletRequest request) throws Exception{
 		logger.info("Welcome! homepage");
 		
 		model.addAttribute("request", request);
@@ -60,21 +60,40 @@ public class HomeController {
 	/*
 	 * 회원 등록
 	 */
-//	@RequestMapping(value = "/member/add", method = RequestMethod.POST)
-//	public String memberAdd(Model model, Member member, HttpServletRequest request){
-//		model.addAttribute("request", request);
-//		model.addAttribute("member", member);
-//		
-//		// 커맨드에 전달
-//		command = (Command) ctx.getBean("memberAdd");
-//		command.execute(model);
-//		
-//		return "redirect:/member/list";
-//	}
-//	
+	@RequestMapping(value = "/member/add", method = RequestMethod.POST)
+	public String memberAdd(Model model, Member member, HttpServletRequest request) {
+		model.addAttribute("request", request);
+		model.addAttribute("member", member);
+		
+		// 커맨드에 전달
+		command = (Command) ctx.getBean("memberAdd");
+		try {
+			command.execute(model);
+		} catch (Exception e) {
+			System.err.println("************* 중복키 에러 *************");
+			model.addAttribute("error", "duplicateKey");
+			return "memberForm";
+		}
+		return "redirect:/member/list";
+	}
+	
+	/*
+	 * 회원 삭제
+	 */
+	@RequestMapping("/member/delete")
+	public String memberDelete(Model model, HttpServletRequest request) throws Exception{
+		logger.info("Delete");
+		model.addAttribute("request", request);
+		
+		command = (Command) ctx.getBean("memberDelete");
+		command.execute(model);
+		
+		return "redirect:/member/list";
+	}
+	
 	
 	@RequestMapping(value = "/project/list")
-	public String projectList(Model model){
+	public String projectList(Model model) throws Exception{
 		logger.info("Welcome! ProjectPage");
 		command = (Command) ctx.getBean("projectList");
 		command.execute(model);

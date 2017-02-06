@@ -28,12 +28,20 @@
         <otherwise>MNO desc</otherwise>
     </choose>
   </select>
-  <!-- 
-  <insert id="insert" parameterType="member">
-    insert into MEMBERS(MNAME,EMAIL,PWD,CRE_DATE,MOD_DATE)
-    values (#{name},#{email},#{password},now(),now())
+  
+  <!-- 회원 추가 -->
+  <insert id="insert" parameterType="com.djs.board.vo.Member">
+    INSERT INTO MEMBERS(MNAME,EMAIL,PWD,CRE_DATE,MOD_DATE)
+    VALUES (#{name},#{email},#{password},now(),now())
   </insert>
   
+  
+  <delete id="delete" parameterType="int">
+    delete from MEMBERS 
+    where MNO=#{value}
+  </delete>
+  
+  <!-- 
   <select id="selectOne" parameterType="int" resultMap="memberResultMap">
     select MNO, MNAME, EMAIL, CRE_DATE, MOD_DATE
     from MEMBERS 
@@ -49,12 +57,6 @@
     </set>
     where MNO=#{no}
   </update>
-  
-  <delete id="delete" parameterType="int">
-    delete from MEMBERS 
-    where MNO=#{value}
-  </delete>
-  
   <select id="exist" parameterType="map" resultMap="memberResultMap">
     select MNO, MNAME, EMAIL, CRE_DATE, MOD_DATE
     from MEMBERS 

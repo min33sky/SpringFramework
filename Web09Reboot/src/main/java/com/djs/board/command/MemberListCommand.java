@@ -24,11 +24,10 @@ public class MemberListCommand implements Command{
 		Map<String, Object> map = model.asMap();
 		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		String orderCond = request.getParameter("orderCond");
-		System.out.println(orderCond);
 		
 		List<Member> list = dao.selectList(orderCond);
-		model.addAttribute("list", list);
-		model.addAttribute("orderCond", orderCond);
+		model.addAttribute("list", list);			// Member Objects 
+		model.addAttribute("orderCond", orderCond);	// Sort
 	}
 
 }
