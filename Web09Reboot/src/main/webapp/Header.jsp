@@ -14,14 +14,14 @@ SPMS(Simple Project Management System)
 <c:if test="${empty sessionScope.member or 
               empty sessionScope.member.email}">
 <a style="color:white;" 
-  href="<%=request.getContextPath()%>/auth/login.do">로그인</a>
+  href="<%=request.getContextPath()%>/auth/loginForm">로그인</a>
 </c:if>  
             
 <c:if test="${!empty sessionScope.member and 
               !empty sessionScope.member.email}">
 ${sessionScope.member.name}
 (<a style="color:white;" 
-  href="<%=request.getContextPath()%>/auth/logout.do">로그아웃</a>)
+  href="<%=request.getContextPath()%>/auth/logout">로그아웃</a>)
 </c:if>
 
 </span>

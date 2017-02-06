@@ -39,4 +39,14 @@ public class MemberDao {
 		session.delete("com.djs.board.dao.MemberDao.delete", no);
 	}
 
+	
+	/*
+	 * 로그인 확인
+	 */
+	public Member exist(Member loginInfo) {
+		
+		Member member = session.selectOne("com.djs.board.dao.MemberDao.exist", loginInfo);
+		return member;
+	}
+
 }

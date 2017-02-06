@@ -41,6 +41,12 @@
     where MNO=#{value}
   </delete>
   
+  <!-- 로그인 -->
+   <select id="exist" parameterType="com.djs.board.vo.Member" resultMap="memberResultMap">
+    select MNO, MNAME, EMAIL, CRE_DATE, MOD_DATE
+    from MEMBERS 
+    where EMAIL=#{email} and PWD=#{password}
+  </select>
   <!-- 
   <select id="selectOne" parameterType="int" resultMap="memberResultMap">
     select MNO, MNAME, EMAIL, CRE_DATE, MOD_DATE
@@ -57,9 +63,5 @@
     </set>
     where MNO=#{no}
   </update>
-  <select id="exist" parameterType="map" resultMap="memberResultMap">
-    select MNO, MNAME, EMAIL, CRE_DATE, MOD_DATE
-    from MEMBERS 
-    where EMAIL=#{email} and PWD=#{password}
-  </select> -->
+  -->
 </mapper>

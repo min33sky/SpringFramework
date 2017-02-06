@@ -1,6 +1,7 @@
 package com.djs.board;
 
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -30,10 +31,52 @@ public class HomeController {
 	
 	@RequestMapping(value = {"/"})
 	public String home(Locale locale, Model model) {
-		
 		return "redirect:member/list";
 	}
 	
+	/*
+	 * 로그인 폼
+	 */
+	@RequestMapping("/auth/loginForm")
+	public String loginForm(Model model){
+		logger.info("Login Form");
+		return "auth/loginForm";
+	}
+	
+	/*
+	 * 로그인
+	 */
+	@RequestMapping(value = "/auth/login", method=RequestMethod.POST)
+	public String login(Model model, Member member, HttpServletRequest request) throws Exception{
+		logger.info("Login");
+		Map<String, Object> map = model.asMap();
+		model.addAttribute("request", request);
+		model.addAttribute("member", member);
+		command = (Command) ctx.getBean("login");
+		command.execute(model);
+		
+		// 로그인 결과를 가져온다.
+		String result = (String) map.get("loginResult");
+		System.out.println(result);
+		
+		// 회원이 없을 시
+		if(result.equals("fail")){
+			return "/auth/loginForm";
+		}
+		return "redirect:/member/list";
+	}
+	
+	/*
+	 * 로그아웃
+	 */
+	@RequestMapping("/auth/logout")
+	public String logout(Model model, HttpServletRequest request) throws Exception{
+		logger.info("Logout");
+		model.addAttribute("request", request);
+		command = (Command) ctx.getBean("logout");
+		command.execute(model);
+		return "redirect:/member/list";
+	}
 	/*
 	 * 회원 목록
 	 */
@@ -54,6 +97,7 @@ public class HomeController {
 	 */
 	@RequestMapping("/member/addForm")
 	public String memberAddForm(Model model){
+		logger.info("Member Register");
 		return "memberForm";
 	}
 	
@@ -92,6 +136,9 @@ public class HomeController {
 	}
 	
 	
+	/*
+	 * 프로젝트 리스트
+	 */
 	@RequestMapping(value = "/project/list")
 	public String projectList(Model model) throws Exception{
 		logger.info("Welcome! ProjectPage");
