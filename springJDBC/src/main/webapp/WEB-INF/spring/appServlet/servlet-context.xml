@@ -7,6 +7,7 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
+
 	
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -23,7 +24,7 @@
 	</beans:bean>
 	
 	<!-- 컴포넌트 검색 -->
-	<context:component-scan base-package="com.javalec.spring.board" />
+	<context:component-scan base-package="com.javalec.spring" />
 	
 	<!-- 스프링 JDBC 빈 생성 -->
 	<beans:bean name="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -37,7 +38,8 @@
 		<beans:property name="dataSource" ref="dataSource"/>
 	</beans:bean>
 	
-	<!-- AOP 설정 빈 생성 -->
+	<!-- AOP 설정 빈 생성
 	<beans:bean class="com.javalec.spring.aop.AopConfig"/> 
-	
+	 -->
+	 
 </beans:beans>

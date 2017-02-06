@@ -126,7 +126,7 @@
              Note: The pattern used is equivalent to using pattern="common" -->
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log." suffix=".txt"/>
 
-      <Context docBase="spring_27_1_ex1_springex" path="/spring_security_pjt4" reloadable="true" source="org.eclipse.jst.jee.server:spring_27_1_ex1_springex"/><Context docBase="spring_30_1_ex1_springex" path="/spring_mybatis3" reloadable="true" source="org.eclipse.jst.jee.server:spring_30_1_ex1_springex"/><Context docBase="JSON_Ex" path="/ex" reloadable="true" source="org.eclipse.jst.jee.server:JSON_Ex"/><Context docBase="Web09Reboot" path="/ex09" reloadable="true" source="org.eclipse.jst.jee.server:Web09Reboot"/><Context docBase="springJDBC" path="/spring" reloadable="true" source="org.eclipse.jst.jee.server:springJDBC"/></Host>
+      <Context docBase="spring_27_1_ex1_springex" path="/spring_security_pjt4" reloadable="true" source="org.eclipse.jst.jee.server:spring_27_1_ex1_springex"/><Context docBase="spring_30_1_ex1_springex" path="/spring_mybatis3" reloadable="true" source="org.eclipse.jst.jee.server:spring_30_1_ex1_springex"/><Context docBase="springMVCBoard" path="/springMVCBoard" reloadable="true" source="org.eclipse.jst.jee.server:springMVCBoard"/><Context docBase="springJDBC" path="/spring" reloadable="true" source="org.eclipse.jst.jee.server:springJDBC"/><Context docBase="SpringInActionWebMVC" path="/spittr" reloadable="true" source="org.eclipse.jst.jee.server:SpringInActionWebMVC"/><Context docBase="first" path="/first" reloadable="true" source="org.eclipse.jst.jee.server:first"/></Host>
     </Engine>
   </Service>
 </Server>

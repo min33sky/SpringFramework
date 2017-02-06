@@ -4,12 +4,19 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.javalec.spring.board.dao.BDao;
 
+@Service("reply")
 public class BReplyCommand implements BCommand{
 
+	@Autowired
+	BDao dao;
+	
 	@Override
 	public void execute(Model model) {
 		Map<String, Object> map = model.asMap();
@@ -22,7 +29,7 @@ public class BReplyCommand implements BCommand{
 		String bStep = request.getParameter("bStep");
 		String bIndent = request.getParameter("bIndent");
 		
-		BDao dao = new BDao();
+//		BDao dao = new BDao();
 		dao.reply(bId, bName, bTitle, bContent, bGroup, bStep, bIndent);
 	}
 

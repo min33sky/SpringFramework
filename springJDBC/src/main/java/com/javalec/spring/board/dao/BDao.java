@@ -5,21 +5,27 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.inject.Inject;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.PreparedStatementSetter;
+import org.springframework.stereotype.Repository;
 
 import com.javalec.spring.board.util.Constant;
 import com.javalec.spring.board.vo.BVo;
 
+@Repository
 public class BDao {
 
-	JdbcTemplate template = null;
-	
-	public BDao(){
-		template = Constant.template; 
-	}
+	@Autowired
+	JdbcTemplate template;
+
+//	public BDao(){
+//		template = Constant.template; 
+//	}
 
 	/*
 	 * 목록 
@@ -29,6 +35,7 @@ public class BDao {
 		String query = "SELECT bId, bName, bTitle, bContent, bDate, bHit, bGroup, bStep, bIndent FROM mvc_board ORDER BY bGroup DESC, bStep ASC";
 		return (ArrayList<BVo>) template.query(query, new BeanPropertyRowMapper<BVo>(BVo.class)); // template.query(쿼리문, 커맨드객체)
 	}
+
 
 	/*
 	 * 글 작성

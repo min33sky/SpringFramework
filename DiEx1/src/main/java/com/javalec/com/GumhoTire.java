@@ -4,7 +4,8 @@ public class GumhoTire implements Tire {
 
 	@Override
 	public void showTire() {
-		System.out.println("금호 타이어");
+		System.out.println("한국 타이어");
 	}
+
 
 }
