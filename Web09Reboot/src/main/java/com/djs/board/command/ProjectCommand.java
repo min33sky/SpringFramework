@@ -17,7 +17,6 @@ public class ProjectCommand implements Command{
 	
 	@Override
 	public void execute(Model model) {
-		
 		List<Project> list = dao.list();
 		model.addAttribute("list", list);
 	}

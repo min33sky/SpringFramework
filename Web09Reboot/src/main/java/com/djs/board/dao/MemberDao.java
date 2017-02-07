@@ -49,4 +49,20 @@ public class MemberDao {
 		return member;
 	}
 
+	/*
+	 * 수정할 회원 정보 가져오기
+	 */
+	public Member selectOne(int no) {
+		
+		Member member = session.selectOne("com.djs.board.dao.MemberDao.selectOne", no);
+		return member;
+	}
+
+	/*
+	 * 회원 수정
+	 */
+	public void update(Member member) {
+		session.update("com.djs.board.dao.MemberDao.update", member);
+	}
+
 }

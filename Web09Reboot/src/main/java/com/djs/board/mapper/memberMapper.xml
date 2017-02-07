@@ -47,21 +47,20 @@
     from MEMBERS 
     where EMAIL=#{email} and PWD=#{password}
   </select>
-  <!-- 
+
+  <!-- 수정할 회원 정보 -->
   <select id="selectOne" parameterType="int" resultMap="memberResultMap">
     select MNO, MNAME, EMAIL, CRE_DATE, MOD_DATE
     from MEMBERS 
     where MNO=#{value}
   </select>
   
-  <update id="update" parameterType="map">
-    update MEMBERS 
-    <set>
-      <if test="name != null">MNAME=#{name},</if>
-      <if test="email != null">EMAIL=#{email},</if>
-      MOD_DATE=now()
-    </set>
-    where MNO=#{no}
+  <!-- 회원 수정  -->
+  <update id="update" parameterType="com.djs.board.vo.Member">
+    UPDATE MEMBERS 
+    SET MNAME=#{name},
+        EMAIL=#{email},
+        MOD_DATE=now()
+    WHERE MNO=#{no}
   </update>
-  -->
 </mapper>

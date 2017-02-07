@@ -55,14 +55,14 @@ public class HomeController {
 		command = (Command) ctx.getBean("login");
 		command.execute(model);
 		
-		// 로그인 결과를 가져온다.
-		String result = (String) map.get("loginResult");
-		System.out.println(result);
+		// Get Login Result
+		String loginResult = (String) map.get("loginResult");
 		
-		// 회원이 없을 시
-		if(result.equals("fail")){
+		// Login Fail
+		if(loginResult.equals("fail")){
 			return "/auth/loginForm";
 		}
+		// Login Success
 		return "redirect:/member/list";
 	}
 	
@@ -122,6 +122,36 @@ public class HomeController {
 	}
 	
 	/*
+	 * 회원 수정 폼
+	 */
+	@RequestMapping(value = "/member/update", method=RequestMethod.GET)
+	public String memberUpdateForm(Model model, HttpServletRequest request) throws Exception{
+		logger.info("Member Update Form");
+		model.addAttribute("request", request);
+		command = (Command) ctx.getBean("memberUpdate");
+		command.execute(model);
+		return "memberUpdateForm";
+	}
+	
+	/*
+	 * 회원 수정
+	 */
+	@RequestMapping(value = "/member/update", method=RequestMethod.POST)
+	public String memberUpdate(Model model, Member member) throws Exception{
+		logger.info("Member Update");
+		model.addAttribute("member", member);
+		command = (Command) ctx.getBean("memberUpdate");
+		try{
+			command.execute(model);
+		} catch (Exception e){
+			System.err.println("************* 중복키 에러 *************");
+			model.addAttribute("error", "duplicateKey");
+			return "memberUpdateForm";
+		}
+		return "redirect:list";
+	}
+	
+	/*
 	 * 회원 삭제
 	 */
 	@RequestMapping("/member/delete")
@@ -133,18 +163,6 @@ public class HomeController {
 		command.execute(model);
 		
 		return "redirect:/member/list";
-	}
-	
-	
-	/*
-	 * 프로젝트 리스트
-	 */
-	@RequestMapping(value = "/project/list")
-	public String projectList(Model model) throws Exception{
-		logger.info("Welcome! ProjectPage");
-		command = (Command) ctx.getBean("projectList");
-		command.execute(model);
-		return "projectList";
 	}
 	
 }
