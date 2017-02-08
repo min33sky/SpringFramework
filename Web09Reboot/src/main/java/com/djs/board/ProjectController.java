@@ -27,7 +27,7 @@ public class ProjectController {
 	 * 프로젝트 리스트
 	 */
 	@RequestMapping(value = "/project/list")
-	public String projectList(Model model) throws Exception{
+	public String projectList(Model model) {
 		logger.info("Welcome! ProjectPage");
 		command = (Command) ctx.getBean("projectList");
 		command.execute(model);

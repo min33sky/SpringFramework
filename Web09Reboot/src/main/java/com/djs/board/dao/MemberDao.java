@@ -1,12 +1,12 @@
 package com.djs.board.dao;
 
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Repository;
 
 import com.djs.board.vo.Member;
@@ -28,7 +28,7 @@ public class MemberDao {
 	/*
 	 * 추가
 	 */
-	public void add(Member member) throws SQLException {
+	public void add(Member member) throws DataIntegrityViolationException {
 			session.insert("com.djs.board.dao.MemberDao.insert", member);
 	}
 	

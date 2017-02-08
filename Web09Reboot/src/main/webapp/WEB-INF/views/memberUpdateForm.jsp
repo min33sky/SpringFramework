@@ -15,7 +15,8 @@
 </head>
 <body>
 	<h1>회원정보</h1>
-	<p id=errorMsg><c:if test="${!empty error }">이메일 중복</c:if></p>
+	<p id=errorMsg><c:if test="${error == 'duplicateKey' }">이메일 중복</c:if></p>
+	<p id=errorMsg><c:if test="${error == 'ruleViolation' }">규칙 위반</c:if></p>
 	<form action='update' method='POST'>
 		번호: <input type='text' name='no' value='${member.no}' readonly><br>
 		이름: <input type='text' name='name' value='${member.name}'><br>

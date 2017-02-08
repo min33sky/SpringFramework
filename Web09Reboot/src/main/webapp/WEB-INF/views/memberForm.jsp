@@ -19,7 +19,8 @@
 <body>
 <jsp:include page="/Header.jsp"/>
 <h1>회원 등록</h1>
-<p id=errorMsg><c:if test="${!empty error }">이메일 중복</c:if></p>
+<p id=errorMsg><c:if test="${error == 'duplicateKey' }">이메일 중복</c:if></p>
+<p id=errorMsg><c:if test="${error == 'ruleViolation' }">규칙 위반</c:if></p>
 
 <form action='add' method='post'>
 	이름: <input type='text' name='name'><br>

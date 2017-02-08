@@ -2,9 +2,8 @@ package com.djs.board.command;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -18,9 +17,10 @@ public class MemberUpdateCommand implements Command{
 	MemberDao dao;
 
 	@Override
-	public void execute(Model model) throws Exception {
+	public void execute(Model model) throws DataIntegrityViolationException {
 		Map<String, Object> map = model.asMap();
 		String numberInfo = (String) map.get("no");
+		System.out.println("numberInfo : " + numberInfo);
 		
 		if(numberInfo != null){
 			// Get Method

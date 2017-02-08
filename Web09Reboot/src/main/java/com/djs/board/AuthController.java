@@ -2,7 +2,6 @@ package com.djs.board;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -43,7 +42,7 @@ public class AuthController {
 	 * 로그인
 	 */
 	@RequestMapping(value = "login", method=RequestMethod.POST)
-	public String login(Model model, Member member, HttpSession session) throws Exception{
+	public String login(Model model, Member member, HttpSession session) {
 		logger.info("Login");
 		Map<String, Object> map = model.asMap();
 		model.addAttribute("session", session);
@@ -66,7 +65,7 @@ public class AuthController {
 	 * 로그아웃
 	 */
 	@RequestMapping("logout")
-	public String logout(Model model, HttpSession session) throws Exception{
+	public String logout(Model model, HttpSession session) {
 		logger.info("Logout");
 		model.addAttribute("session", session);
 		command = (Command) ctx.getBean("logout");

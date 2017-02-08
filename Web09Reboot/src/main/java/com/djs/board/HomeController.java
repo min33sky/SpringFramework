@@ -4,11 +4,12 @@ import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.ibatis.annotations.Param;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,7 +40,7 @@ public class HomeController {
 	 * 회원 목록
 	 */
 	@RequestMapping("/member/list")
-	public String memberList(Model model, HttpServletRequest request) throws Exception{
+	public String memberList(Model model, HttpServletRequest request) {
 		String path = request.getRequestURI();
 		String cp = request.getContextPath();
 		String sId = request.getRequestedSessionId();
@@ -76,11 +77,17 @@ public class HomeController {
 		command = (Command) ctx.getBean("memberAdd");
 		try {
 			command.execute(model);
-		} catch (Exception e) {
+		} catch (DuplicateKeyException e) {
 			System.err.println("************* 중복키 에러 *************");
+			e.printStackTrace();
 			model.addAttribute("error", "duplicateKey");
 			return "memberForm";
-		}
+		} catch (DataIntegrityViolationException e) {
+			System.err.println("************* 무결성 위반 에러 *************");
+			e.printStackTrace();
+			model.addAttribute("error", "ruleViolation");
+			return "memberForm";
+		} 
 		return "redirect:/member/list";
 	}
 
@@ -88,11 +95,10 @@ public class HomeController {
 	 * 회원 수정 폼
 	 */
 	@RequestMapping(value = "/member/update", method=RequestMethod.GET)
-	public String memberUpdateForm(Model model, @RequestParam String no) throws Exception{
-		logger.info("Member Update Form");
-		System.out.println("어떤 것을 수정 :" + no);
-		model.addAttribute("no", no);
+	public String memberUpdateForm(Model model, @RequestParam String no){
+		logger.info("Member Update Form : " + no);
 		command = (Command) ctx.getBean("memberUpdate");
+		model.addAttribute("no", no);
 		command.execute(model);
 		return "memberUpdateForm";
 	}
@@ -101,17 +107,23 @@ public class HomeController {
 	 * 회원 수정
 	 */
 	@RequestMapping(value = "/member/update", method=RequestMethod.POST)
-	public String memberUpdate(Model model, Member member) throws Exception{
+	public String memberUpdate(Model model, Member member){
 		logger.info("Member Update");
 		model.addAttribute("member", member);
 		command = (Command) ctx.getBean("memberUpdate");
 		try{
 			command.execute(model);
-		} catch (Exception e){
+		}catch (DuplicateKeyException e) {
 			System.err.println("************* 중복키 에러 *************");
+			e.printStackTrace();
 			model.addAttribute("error", "duplicateKey");
 			return "memberUpdateForm";
-		}
+		} catch (DataIntegrityViolationException e) {
+			System.err.println("************* 무결성 위반 에러 *************");
+			e.printStackTrace();
+			model.addAttribute("error", "ruleViolation");
+			return "memberUpdateForm";
+		} 
 		return "redirect:list";
 	}
 	
@@ -119,7 +131,7 @@ public class HomeController {
 	 * 회원 삭제
 	 */
 	@RequestMapping("/member/delete")
-	public String memberDelete(Model model, @RequestParam String no) throws Exception{
+	public String memberDelete(Model model, @RequestParam String no) {
 		logger.info("Delete : " + no + "번 게시글");
 		model.addAttribute("no", no);
 		command = (Command) ctx.getBean("memberDelete");
