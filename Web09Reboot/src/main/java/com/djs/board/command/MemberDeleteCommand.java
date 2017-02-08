@@ -19,8 +19,7 @@ public class MemberDeleteCommand implements Command{
 	@Override
 	public void execute(Model model) {
 		Map<String, Object> map = model.asMap();
-		HttpServletRequest request = (HttpServletRequest) map.get("request");
-		String no = request.getParameter("no");
+		String no = (String) map.get("no");
 		
 		dao.delete(Integer.parseInt(no));
 		

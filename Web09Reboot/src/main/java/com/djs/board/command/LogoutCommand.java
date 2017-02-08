@@ -14,8 +14,7 @@ public class LogoutCommand implements Command{
 	@Override
 	public void execute(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
-		HttpServletRequest request = (HttpServletRequest) map.get("request");
-		HttpSession session = request.getSession();
+		HttpSession session = (HttpSession) map.get("session");
 		session.invalidate();
 	}
 

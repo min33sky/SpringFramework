@@ -15,6 +15,11 @@
 		<level value="info" />
 	</logger>
 	
+	<!-- Database Loggers -->
+	<logger name="com.djs.board.dao">
+		<level value="DEBUG" />
+	</logger>
+	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
 		<level value="info" />

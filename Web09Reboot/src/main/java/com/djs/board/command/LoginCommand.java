@@ -22,7 +22,6 @@ public class LoginCommand implements Command{
 	public void execute(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
 		Member loginInfo = (Member) map.get("member");
-		HttpServletRequest request = (HttpServletRequest) map.get("request");
 		
 		
 		Member member = dao.exist(loginInfo);
@@ -30,7 +29,7 @@ public class LoginCommand implements Command{
 		if(member == null){
 			model.addAttribute("loginResult", "fail");
 		}else{
-			HttpSession session = request.getSession();
+			HttpSession session = (HttpSession) map.get("session");
 			session.setAttribute("member", member);
 			model.addAttribute("loginResult", "success");
 		}

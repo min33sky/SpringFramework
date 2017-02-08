@@ -20,21 +20,17 @@ public class MemberUpdateCommand implements Command{
 	@Override
 	public void execute(Model model) throws Exception {
 		Map<String, Object> map = model.asMap();
-		HttpServletRequest request = (HttpServletRequest) map.get("request");
-		if(request != null){
-			String no = request.getParameter("no");
-			Member member = dao.selectOne(Integer.parseInt(no));
+		String numberInfo = (String) map.get("no");
+		
+		if(numberInfo != null){
+			// Get Method
+			Member member = dao.selectOne(Integer.parseInt(numberInfo));
 			model.addAttribute("member", member);
 			
 		}else{
-			System.out.println("수정입니다.");
+			// Post Method
 			Member member = (Member) map.get("member");
-			String name = member.getName();
-			String email = member.getEmail();
-			System.out.println(name+", "+email);
 			dao.update(member);
 		}		
 	}
-	
-	
 }
